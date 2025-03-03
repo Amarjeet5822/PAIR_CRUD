@@ -3,8 +3,9 @@ const User = require("../models/user.model");
 const register = async (req, res, next ) => {
     try {
         const { name, email, password } = req.body;
-        const newUser = await User.create({ name, email, password })
-
+        // const newUser = await User.create({ name, email, password })
+        const newUser = new User({name, email, password });
+        await newUser.save();
         const newUserDetails = { token: await newUser.getToken() };
 
         return res.status(201).json({
